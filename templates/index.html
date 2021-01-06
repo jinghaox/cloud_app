@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+<!-- here the title of index.html will be transferred to base.html -->
+{%block title %}
+    URL Shortener
+{%endblock%}
+
+{%block main%}
+    <div class="container">
+        <div class="card-deck mb-3">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal text-center">Website</h4>
+                </div>
+            <div class="card-body">
+                <!-- the action of this form will be sent to your-url, needs to define your-url in urlshort.py -->
+                <!-- when we click "Shorten" button to "submit", it actually calls action for "your-url"-->
+                <form action="your-url" METHOD="post">
+
+                    <!-- input box with type url(will check if it's url) with label 'url'-->
+                    <!-- for attr of label means it's a form -->
+                    <label for="url">Website URL</label>
+                    <!-- required attr means it's must have --> 
+                    <!-- form-control is from bootstrap, make the input box locate in a new line, looks nicer -->
+                    <input type="url" class="form-control" name="url" value="" required>
+
+                    <br>
+                    <label for="code">Short name</label>
+                    <input type="text" class="form-control" name="code" value="" required>
+                    <br>
+                    <input class="btn btn-primary btn-lg btn-block" type="submit" value="Shorten">
+                </form>
+            </div>
+        </div>
+
+    <!--for session, redirect_to_url is defined in urlshort.py, url_for is from flask, code is from session in index() -->
+    {% if codes %}
+    <h2>Codes you have created</h2>
+    <ul>
+        {% for code in codes %}
+        <a href="{{url_for('redirect_to_url', code=code)}}">
+            <li>{{code}}</li>
+        </a>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form action="/" METHOD="post">
+        <input type="submit" value="Clear Session">
+    </form>
+
+{%endblock%}
+

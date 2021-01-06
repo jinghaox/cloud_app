@@ -1,0 +1,35 @@
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
+    <title>
+        {%block title%}
+        {%endblock%}
+    </title>
+</head>
+
+<body>
+    <!-- Flex quickly manage the layout, alignment and sizing of grid columns, navigation, components and more with a full suite of responsive flexbox utilites-->
+    <!-- flex-md-row to render the box horizontally -->
+    <!-- align the items in the flex box for the center-->
+    <!-- p-3 where p is madding -->
+    <div class="d-flex flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">URL Shortener</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="{{url_for('session_api')}}">API</a>
+        </nav>
+        <a class="btn btn-outline-primary" href="{{url_for('index')}}">New URL</a>
+    </div>
+
+    {% for message in get_flashed_messages() %}
+    <div class="container text-center">
+        <div class="p-3 mb-2 bg-danger text-white">{{message}}</div>
+    </div>
+    {% endfor %}
+
+    {%block main%}
+    {%endblock%}
+
+    <script src="static/jquery-3.5.1.min.js"></script>
+    <script src="static/proper.min.js"></script>
+    <!-- bootstrap depends on jquery and proper, so it must be at the end -->
+    <script src="static/bootstrap.min.js"></script>
+</body>
